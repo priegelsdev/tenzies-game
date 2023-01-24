@@ -1,15 +1,21 @@
-import React from "react"
+import React, {useState, useEffect} from "react"
 import Die from './Die'
 
 export default function App() {
 
-  //create random numbers array to be displayed in die div
-  const dieElements = new Array(10).fill(0).map(die => {
-      const randomNum = Math.floor(Math.random() * 6) + 1
-      return <Die 
-               value={randomNum}
-             />
-  })
+  const [dice, setDice] = useState(generateDice())
+
+  // function to generate array of random numbered dice
+  function generateDice() {
+    const newDice = [];
+    for (let i = 0; i < 10; i++) {
+      newDice.push(Math.ceil(Math.random() * 6))
+    }
+    return newDice
+  }
+
+  // array of dice elements to be rendered out 
+  const diceElements = dice.map(die => <Die value={die} />)
       
   return (
           <main>
@@ -19,7 +25,7 @@ export default function App() {
                 it at its current value between rolls.</p>
             </div>  
             <div className="die-container">
-              {dieElements}
+              {diceElements}
             </div>
             <button>Roll</button>
           </main>
