@@ -14,6 +14,25 @@ export default function App() {
     return newDice
   }
 
+  function rollDice() {
+    setDice(generateDice)
+  }
+
+  // not working
+  function newFunc() {
+    const emptyArr = new Array(10).fill({value: 0, isHeld: false})
+    const newDDice = emptyArr.map(die => ({
+      ...die,
+      value: Math.ceil(Math.random() * 6)
+    }))
+
+    console.log(newDDice)
+    return newDDice
+  }
+
+  newFunc();
+
+
   // array of dice elements to be rendered out 
   const diceElements = dice.map(die => <Die value={die} />)
       
@@ -27,7 +46,7 @@ export default function App() {
             <div className="die-container">
               {diceElements}
             </div>
-            <button>Roll</button>
+            <button onClick={rollDice}>Roll</button>
           </main>
       )
 }

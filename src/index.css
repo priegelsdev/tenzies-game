@@ -67,4 +67,5 @@ button {
   border-radius: 3.81277px;
   border: none;
   margin-top: 1.5em;
+  cursor: pointer;
 }
