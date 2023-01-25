@@ -3,22 +3,38 @@ import Die from './Die'
 
 export default function App() {
 
-  const [dice, setDice] = useState(generateDice())
+  const [dice, setDice] = useState(newDice())
 
   // function to generate array of random numbered dice
-  function generateDice() {
+  function newDice() {
     const newDice = [];
     for (let i = 0; i < 10; i++) {
-      newDice.push(Math.ceil(Math.random() * 6))
+      newDice.push(generateDie())
     }
     return newDice
   }
 
-  function rollDice() {
-    setDice(generateDice)
+  // helper function to generate one die element
+  function generateDie() {
+    const die = {
+      value: Math.ceil(Math.random() * 6),
+      isHeld: false,
+      id: crypto.randomUUID()
+    }
+    return die
   }
 
-  // not working
+  // function when roll button is clicked
+  function rollDice() {
+    setDice(newDice)
+  }
+
+  // function when die is clicked; should toggle isHeld boolean and display green background if true
+  function toggleDie() {
+    console.log('test')
+  }
+
+/*   // not working
   function newFunc() {
     const emptyArr = new Array(10).fill({value: 0, isHeld: false})
     const newDDice = emptyArr.map(die => ({
@@ -30,11 +46,18 @@ export default function App() {
     return newDDice
   }
 
-  newFunc();
+  newFunc(); */
 
 
   // array of dice elements to be rendered out 
-  const diceElements = dice.map(die => <Die value={die} />)
+  const diceElements = dice.map(die => {
+    return <Die 
+      id={die.id}
+      key={die.id}
+      value={die.value}
+      onClick={toggleDie} 
+    />}
+  )
       
   return (
           <main>
