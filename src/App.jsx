@@ -30,8 +30,14 @@ export default function App() {
   }
 
   // function when die is clicked; should toggle isHeld boolean and display green background if true
-  function toggleDie() {
-    console.log('test')
+  function toggleDie(id) {
+    setDice(prevDice => {
+      return prevDice.map(prevDie => {
+        return prevDie.id === id ? 
+          {...prevDie, isHeld: !prevDie.isHeld} : 
+          prevDie
+      })
+    })
   }
 
 /*   // not working
@@ -56,7 +62,7 @@ export default function App() {
       key={die.id}
       value={die.value}
       isHeld={die.isHeld}
-      onClick={toggleDie} 
+      onClick={() => toggleDie(die.id)} 
     />}
   )
       
