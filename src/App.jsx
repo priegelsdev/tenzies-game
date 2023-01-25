@@ -40,13 +40,18 @@ export default function App() {
 
   // function when roll button is clicked
   function rollDice() {
-    setDice(prevDice => {
-      return prevDice.map(prevDie => {
-        return prevDie.isHeld ?
-          prevDie :
-          generateDie(); 
+    if (!tenzies) {
+      setDice(prevDice => {
+        return prevDice.map(prevDie => {
+          return prevDie.isHeld ?
+            prevDie :
+            generateDie(); 
+        })
       })
-    })
+    } else {
+      setTenzies(false)
+      setDice(newDice())
+    }
   }
 
   // function when die is clicked; should toggle isHeld boolean and display green background if true
