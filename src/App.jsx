@@ -26,7 +26,13 @@ export default function App() {
 
   // function when roll button is clicked
   function rollDice() {
-    setDice(newDice)
+    setDice(prevDice => {
+      return prevDice.map(prevDie => {
+        return prevDie.isHeld ?
+          prevDie :
+          generateDie(); 
+      })
+    })
   }
 
   // function when die is clicked; should toggle isHeld boolean and display green background if true
@@ -39,21 +45,6 @@ export default function App() {
       })
     })
   }
-
-/*   // not working
-  function newFunc() {
-    const emptyArr = new Array(10).fill({value: 0, isHeld: false})
-    const newDDice = emptyArr.map(die => ({
-      ...die,
-      value: Math.ceil(Math.random() * 6)
-    }))
-
-    console.log(newDDice)
-    return newDDice
-  }
-
-  newFunc(); */
-
 
   // array of dice elements to be rendered out 
   const diceElements = dice.map(die => {
