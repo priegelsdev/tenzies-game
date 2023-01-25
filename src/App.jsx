@@ -1,9 +1,23 @@
 import React, {useState, useEffect} from "react"
 import Die from './Die'
+import Confetti from 'react-confetti'
 
 export default function App() {
 
+  // states for dice and for winning the game
   const [dice, setDice] = useState(newDice())
+  const [tenzies, setTenzies] = useState(false)
+
+  // effect for when game is won 
+  useEffect(() => {
+    const allHeld = dice.every(die => die.isHeld)
+    const firstValue = dice[0].value
+    const sameValues = dice.every(die => die.value === firstValue)
+
+    if (allHeld && sameValues) {
+      setTenzies(true)
+    }
+  }, [dice])
 
   // function to generate array of random numbered dice
   function newDice() {
@@ -59,6 +73,7 @@ export default function App() {
       
   return (
           <main>
+            {tenzies && <Confetti />}
             <div className="title-container">
               <h1>Tenzies</h1>
               <p>Roll until all dice are the same. Click each die to freeze 
@@ -67,7 +82,7 @@ export default function App() {
             <div className="die-container">
               {diceElements}
             </div>
-            <button onClick={rollDice}>Roll</button>
+            <button onClick={rollDice}>{tenzies ? 'New Game' : 'Roll'}</button>
           </main>
       )
 }
