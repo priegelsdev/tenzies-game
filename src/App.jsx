@@ -55,6 +55,7 @@ export default function App() {
       id={die.id}
       key={die.id}
       value={die.value}
+      isHeld={die.isHeld}
       onClick={toggleDie} 
     />}
   )
